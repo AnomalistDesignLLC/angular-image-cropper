@@ -42,6 +42,7 @@ module.exports = function(angular, Cropper) {
     return {
       restrict: 'E',
       scope: {
+        visible:'=',
         centerOnInit: '@',
         checkCrossOrigin: '@',
         cropCallback: '&',
