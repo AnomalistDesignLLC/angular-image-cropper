@@ -80,8 +80,8 @@ function Cropper(options) {
    */
   if (this.options.cropCallback) {
     this.events.on('Cropped', function(base64) {
-      this.options.cropCallback(base64);
-    }.bind(this));
+                                this.options.cropCallback(base64);
+                              }.bind(this));
   }
 
   /**
@@ -89,8 +89,8 @@ function Cropper(options) {
    */
   if (this.options.apiCallback) {
     this.events.on('ImageReady', function() {
-      this.options.apiCallback(api);
-    }.bind(this));
+                                   this.options.apiCallback(api);
+                                 }.bind(this));
   }
 }
 
@@ -229,6 +229,16 @@ Cropper.prototype.remove = function() {
   if (this.options.showControls) elements.target.removeChild(elements.controls.wrapper);
 };
 
+Cropper.prototype.changeImage = function(newImageUrl) {
+  if (typeof newImageUrl === 'undefined' || newImageUrl === '') {
+    return;
+  }
+  
+  this.originalUrl = newImageUrl;
+  this.loadImage();
+};
+
+
 Cropper.prototype.loadImage = function() {
   var self = this;
   var xhr;
@@ -241,9 +251,9 @@ Cropper.prototype.loadImage = function() {
 
   xhr = new XMLHttpRequest();
   xhr.onerror = xhr.onabort = function(response) {
-    self.originalBase64 = self.originalUrl;
-    self.setupImageSRC();
-  };
+                  self.originalBase64 = self.originalUrl;
+                  self.setupImageSRC();
+                };
 
   // Need to have proper sets of 'Access-Control-Allow-Origin' on the requested resource server.
   xhr.onload = function() {
@@ -286,8 +296,8 @@ Cropper.prototype.setupImageSRC = function() {
 
   // Waiting the image as loaded to trigger event.
   this.elements.image.onload = function() {
-    this.events.triggerHandler('ImageReady');
-  }.bind(this);
+                                 this.events.triggerHandler('ImageReady');
+                               }.bind(this);
 };
 
 /**
@@ -564,24 +574,24 @@ Cropper.prototype.cropHandler = function() {
 
   if(this.data.degrees == 0) { // simple offsets from canvas centre & scale
     context.drawImage(this.elements.image,
-      (cx - this.data.x) / this.data.scale,
-      (cy - this.data.y) / this.data.scale
-    );
+                      (cx - this.data.x) / this.data.scale,
+                      (cy - this.data.y) / this.data.scale
+                     );
   } else if(this.data.degrees == 90) { // swap axis and reverse the new y origin
     context.drawImage(this.elements.image,
-      (cy - this.data.y) / this.data.scale,
-      (-1 * this.elements.image.naturalHeight) + ((-cx + this.data.x) / this.data.scale)
-    );
+                      (cy - this.data.y) / this.data.scale,
+                      (-1 * this.elements.image.naturalHeight) + ((-cx + this.data.x) / this.data.scale)
+                     );
   } else if(this.data.degrees == 180) { // reverse both origins
     context.drawImage(this.elements.image,
-      (-1 * this.elements.image.naturalWidth) + ((-cx + this.data.x) / this.data.scale),
-      (-1 * this.elements.image.naturalHeight) + ((-cy + this.data.y) / this.data.scale)
-    );
+                      (-1 * this.elements.image.naturalWidth) + ((-cx + this.data.x) / this.data.scale),
+                      (-1 * this.elements.image.naturalHeight) + ((-cy + this.data.y) / this.data.scale)
+                     );
   } else if(this.data.degrees == 270) { // swap axis and reverse the new x origin
     context.drawImage(this.elements.image,
-      (-1 * this.elements.image.naturalWidth) + ((-cy + this.data.y) / this.data.scale),
-      (cx - this.data.x) / this.data.scale
-    );
+                      (-1 * this.elements.image.naturalWidth) + ((-cy + this.data.y) / this.data.scale),
+                      (cx - this.data.x) / this.data.scale
+                     );
   }
 
   var base64 = canvas.toDataURL('image/jpeg');
@@ -701,10 +711,10 @@ Cropper.prototype.isCrossOrigin = function(url) {
   var parts = url.match();
 
   return Boolean(parts && (
-      parts[1] !== location.protocol ||
+    parts[1] !== location.protocol ||
       parts[2] !== location.hostname ||
       parts[3] !== location.port
-    ));
+  ));
 };
 
 /**
@@ -755,20 +765,20 @@ Cropper.prototype.base64ArrayBuffer = function(arrayBuffer) {
  * Helper for events handler.
  */
 Cropper.prototype.events = new function() {
-  var _triggers = {};
+                                 var _triggers = {};
 
-  this.on = function(event, callback) {
-    if (!_triggers[event]) {
-      _triggers[event] = [];
-    }
-    _triggers[event].push(callback);
-  };
+                                 this.on = function(event, callback) {
+                                   if (!_triggers[event]) {
+                                     _triggers[event] = [];
+                                   }
+                                   _triggers[event].push(callback);
+                                 };
 
-  this.triggerHandler = function(event, params) {
-    if (_triggers[event]) {
-      for (var i in _triggers[event]) {
-        _triggers[event][i](params);
-      }
-    }
-  };
-};
+                                 this.triggerHandler = function(event, params) {
+                                   if (_triggers[event]) {
+                                     for (var i in _triggers[event]) {
+                                       _triggers[event][i](params);
+                                     }
+                                   }
+                                 };
+                               };
