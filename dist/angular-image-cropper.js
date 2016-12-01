@@ -159,6 +159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      'Cropped',
 	      function(base64) {
 	        this.options.cropCallback(base64);
+	        this.options.visible=false;
 	      }.bind(this)
 	    );
 	  }
@@ -894,6 +895,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this.centerOnInit = eval(this.centerOnInit);
 	      this.checkCrossOrigin = eval(this.checkCrossOrigin);
 	      this.showControls = eval(this.showControls);
+	      this.visible = eval(this.visible);
 	
 	      this.init = function() {
 	        this.target = this.element;
