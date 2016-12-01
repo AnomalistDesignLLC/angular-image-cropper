@@ -92,6 +92,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  // Default options.
 	  var defaults = {
+	    visible:false,
 	    checkCrossOrigin: false,
 	    apiCallback: undefined,
 	    cropCallback: undefined,
@@ -154,18 +155,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	   * Execute callback function when cropped.
 	   */
 	  if (this.options.cropCallback) {
-	    this.events.on('Cropped', function(base64) {
-	                                this.options.cropCallback(base64);
-	                              }.bind(this));
+	    this.events.on(
+	      'Cropped',
+	      function(base64) {
+	        this.options.cropCallback(base64);
+	      }.bind(this)
+	    );
 	  }
 	
 	  /**
 	   * Send API when image is ready if readyCallback is true.
 	   */
 	  if (this.options.apiCallback) {
-	    this.events.on('ImageReady', function() {
-	                                   this.options.apiCallback(api);
-	                                 }.bind(this));
+	    this.events.on(
+	      'ImageReady',
+	      function() {
+	        this.options.apiCallback(api);
+	      }.bind(this)
+	    );
 	  }
 	}
 	
