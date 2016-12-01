@@ -84,6 +84,7 @@ function Cropper(options) {
       'Cropped',
       function(base64) {
         this.options.cropCallback(base64);
+        this.options.visible=false;
       }.bind(this)
     );
   }
