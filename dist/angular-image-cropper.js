@@ -907,6 +907,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return {
 	      restrict: 'E',
 	      scope: {
+	        visible:'=',
 	        centerOnInit: '@',
 	        checkCrossOrigin: '@',
 	        cropCallback: '&',
