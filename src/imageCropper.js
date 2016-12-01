@@ -17,7 +17,6 @@ function Cropper(options) {
 
   // Default options.
   var defaults = {
-    visible:false,
     checkCrossOrigin: false,
     apiCallback: undefined,
     cropCallback: undefined,
@@ -84,7 +83,6 @@ function Cropper(options) {
       'Cropped',
       function(base64) {
         this.options.cropCallback(base64);
-        this.options.visible=false;
       }.bind(this)
     );
   }

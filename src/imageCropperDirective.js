@@ -22,7 +22,6 @@ module.exports = function(angular, Cropper) {
       this.centerOnInit = eval(this.centerOnInit);
       this.checkCrossOrigin = eval(this.checkCrossOrigin);
       this.showControls = eval(this.showControls);
-      this.visible = eval(this.visible);
 
       this.init = function() {
         this.target = this.element;
@@ -43,7 +42,6 @@ module.exports = function(angular, Cropper) {
     return {
       restrict: 'E',
       scope: {
-        visible:'=',
         centerOnInit: '@',
         checkCrossOrigin: '@',
         cropCallback: '&',
