@@ -95,6 +95,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    checkCrossOrigin: false,
 	    apiCallback: undefined,
 	    cropCallback: undefined,
+	    flagCallback: undefined,
+	    flagData:{},
 	    width: 400,
 	    height: 300,
 	    imageUrl: undefined,
@@ -157,7 +159,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.events.on(
 	      'Cropped',
 	      function(base64) {
+	        console.trace();
 	        this.options.cropCallback(base64);
+	        this.events.triggerHandler('Flagged', base64);
+	      }.bind(this)
+	    );
+	  }
+	
+	  if (this.options.apiCallback) {
+	    this.events.on(
+	      'Flagged',
+	      function(flag) {
+	        this.options.flagCallback(flag);
 	      }.bind(this)
 	    );
 	  }
@@ -887,6 +900,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // Get callback.
 	      this.apiCallback = this.api();
 	      this.cropCallback = this.cropCallback();
+	      this.flagCallback = this.flagCallback();
+	
+	      this.flagData = this.flagData();
 	
 	      // Eval for boolean values.
 	      this.fitOnInit = eval(this.fitOnInit);
@@ -916,6 +932,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        centerOnInit: '@',
 	        checkCrossOrigin: '@',
 	        cropCallback: '&',
+	        flagCallback: '=',
+	        flagData: '=',
 	        api: '&',
 	        fitOnInit: '@',
 	        height: '@',

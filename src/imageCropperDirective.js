@@ -17,6 +17,12 @@ module.exports = function(angular, Cropper) {
       this.apiCallback = this.api();
       this.cropCallback = this.cropCallback();
 
+console.dir(this);
+
+//      this.flagCallback = this.flagCallback();
+
+//      this.flagData = this.flagData();
+
       // Eval for boolean values.
       this.fitOnInit = eval(this.fitOnInit);
       this.centerOnInit = eval(this.centerOnInit);
@@ -45,6 +51,8 @@ module.exports = function(angular, Cropper) {
         centerOnInit: '@',
         checkCrossOrigin: '@',
         cropCallback: '&',
+        flagCallback: '=',
+        flagData: '=',
         api: '&',
         fitOnInit: '@',
         height: '@',

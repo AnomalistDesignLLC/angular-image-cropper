@@ -20,6 +20,8 @@ function Cropper(options) {
     checkCrossOrigin: false,
     apiCallback: undefined,
     cropCallback: undefined,
+    flagCallback: undefined,
+    flagData:undefined,
     width: 400,
     height: 300,
     imageUrl: undefined,
@@ -82,7 +84,17 @@ function Cropper(options) {
     this.events.on(
       'Cropped',
       function(base64) {
+        console.trace();
         this.options.cropCallback(base64);
+      }.bind(this)
+    );
+  }
+
+  if (this.options.flagCallback) {
+    this.events.on(
+      'Flagged',
+      function(flag) {
+        this.options.flagCallback(flag);
       }.bind(this)
     );
   }
